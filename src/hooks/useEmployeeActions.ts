@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import {} from '@/lib/schemas'
 import { useEmployeeStore } from '@/lib/store'
-import { EmployeeActions, FormState, DeleteConfirmState } from '../types'
+import {
+    EmployeeActions,
+    FormState,
+    DeleteConfirmState
+} from '../features/employees/types'
 
 export const useEmployeeActions = () => {
     const [formState, setFormState] = useState<FormState>({

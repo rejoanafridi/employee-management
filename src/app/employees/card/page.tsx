@@ -5,7 +5,7 @@ import { useEmployeeStore } from '@/lib/store'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeCardView } from '@/features/employees/components/EmployeeCardView'
-import { useEmployeeActions } from '@/features/employees/hooks/useEmployeeActions'
+import { useEmployeeActions } from '@/hooks/useEmployeeActions'
 import EmployeeForm from '@/components/form/EmployeeForm'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
@@ -19,7 +19,7 @@ export default function CardView() {
         handleCancelDelete
     } = useEmployeeActions()
 
-    const { employees, isLoading, error, isDarkMode, fetchEmployees } =
+    const { filteredEmployees, isLoading, error, isDarkMode, fetchEmployees } =
         useEmployeeStore()
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function CardView() {
 
     return (
         <div className={`py-6 ${isDarkMode ? 'text-white' : ''}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="px-4 sm:px-6 lg:px-8">
                 <EmployeeHeader
                     onAddClick={() =>
                         setFormState({
@@ -48,7 +48,7 @@ export default function CardView() {
                 />
 
                 <EmployeeCardView
-                    employees={employees}
+                    employees={filteredEmployees}
                     isLoading={isLoading}
                     onEdit={(employee) =>
                         setFormState({

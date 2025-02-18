@@ -13,7 +13,7 @@ export const EmployeeTableSkeleton = () => {
                 </div>
             </div>
             {/* Rows */}
-            {[...Array(5)].map((_, index) => (
+            {[...Array(8)].map((_, index) => (
                 <div
                     key={index}
                     className="p-4 border-b border-gray-200 dark:border-gray-700 last:border-0"

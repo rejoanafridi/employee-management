@@ -4,8 +4,7 @@ import { useEmployeeStore } from '@/lib/store'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeList } from '@/features/employees/components/EmployeeList'
-import {} from '@/features/employees/components/EmployeeListSkeleton'
-import { useEmployeeActions } from '@/features/employees/hooks/useEmployeeActions'
+import { useEmployeeActions } from '@/hooks/useEmployeeActions'
 import EmployeeForm from '@/components/form/EmployeeForm'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
@@ -19,7 +18,7 @@ export default function EmployeesPage() {
         handleCancelDelete
     } = useEmployeeActions()
 
-    const { employees, error, isDarkMode, viewMode, fetchEmployees } =
+    const { employees, error, isDarkMode, fetchEmployees, isLoading } =
         useEmployeeStore()
 
     useEffect(() => {
@@ -36,8 +35,8 @@ export default function EmployeesPage() {
         )
 
     return (
-        <div className={`py-6 ${isDarkMode ? 'text-white' : ''}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`py-6  ${isDarkMode ? 'text-white' : ''}`}>
+            <div className="px-4 sm:px-6 lg:px-8">
                 <EmployeeHeader
                     onAddClick={() =>
                         setFormState({
@@ -48,7 +47,7 @@ export default function EmployeesPage() {
                 />
 
                 <EmployeeList
-                    viewMode={viewMode}
+                    isLoading={isLoading}
                     employees={employees}
                     onEdit={(employee) =>
                         setFormState({

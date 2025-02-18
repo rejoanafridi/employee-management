@@ -17,8 +17,8 @@ export const EmployeeCardView = ({
 }: EmployeeCardViewProps) => {
     if (isLoading) {
         return (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {[...Array(6)].map((_, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[...Array(8)].map((_, index) => (
                     <EmployeeCardSkeleton key={index} />
                 ))}
             </div>
@@ -26,7 +26,7 @@ export const EmployeeCardView = ({
     }
 
     return (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {employees.map((employee) => (
                 <EmployeeCard
                     key={employee.id}

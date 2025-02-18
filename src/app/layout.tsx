@@ -1,11 +1,11 @@
 'use client'
-import type {} from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { useEmployeeStore } from '@/lib/store'
+import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +14,7 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    const isDarkMode = useEmployeeStore((state) => state.isDarkMode)
+    const { isDarkMode, isSidebarOpen } = useEmployeeStore()
 
     return (
         <html lang="en" suppressHydrationWarning>
@@ -33,9 +33,14 @@ export default function RootLayout({
                     <div className="min-h-screen">
                         <Navbar />
                         <Sidebar />
-                        <main className="lg:pl-64 flex-1">
+                        <main
+                            className={cn('flex-1', {
+                                'lg:pl-64': !isSidebarOpen,
+                                'lg:pl-8': isSidebarOpen
+                            })}
+                        >
                             <div className="py-6">
-                                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className=" mx-auto px-4 sm:px-6 lg:px-8">
                                     {children}
                                 </div>
                             </div>

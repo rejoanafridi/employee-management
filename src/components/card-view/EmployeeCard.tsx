@@ -22,14 +22,14 @@ export default function EmployeeCard({
     return (
         <div
             className={cn(
-                'group relative overflow-hidden rounded-lg shadow-sm transition-all duration-300 hover:shadow-lg',
+                'group relative overflow-hidden rounded-lg shadow-xs transition-all duration-300 hover:shadow-lg',
                 isDarkMode ? 'bg-gray-800' : 'bg-white',
                 'transform hover:-translate-y-1'
             )}
         >
             <div className="p-6">
                 <div className="flex items-center space-x-4">
-                    <div className="relative h-16 w-16 flex-shrink-0">
+                    <div className="relative h-16 w-16 shrink-0">
                         <Image
                             src={employee.imageUrl || defaultAvatar}
                             alt={employee.name}

@@ -4,12 +4,14 @@ import { Employee } from './schemas'
 
 interface EmployeeStore {
     employees: Employee[]
+    filteredEmployees: Employee[]
     isLoading: boolean
     error: string | null
     searchQuery: string
     selectedDepartment: string | null
     isDarkMode: boolean
     viewMode: 'card' | 'table'
+    isSidebarOpen: boolean
     setSearchQuery: (query: string) => void
     setSelectedDepartment: (department: string | null) => void
     setDarkMode: (isDark: boolean) => void
@@ -18,6 +20,7 @@ interface EmployeeStore {
     addEmployee: (employee: Omit<Employee, 'id'>) => Promise<void>
     updateEmployee: (id: string, employee: Partial<Employee>) => Promise<void>
     deleteEmployee: (id: string) => Promise<void>
+    toggleSidebar: () => void
 }
 
 // Mock data for initial development
@@ -46,31 +49,46 @@ export const useEmployeeStore = create<EmployeeStore>()(
     persist(
         (set, get) => ({
             employees: [],
+            filteredEmployees: [],
             isLoading: true,
             error: null,
             searchQuery: '',
+            isSidebarOpen: true,
             selectedDepartment: null,
             isDarkMode: false,
             viewMode: 'card',
+            setSearchQuery: (query) => {
+                set({ searchQuery: query })
 
-            setSearchQuery: (query) => set({ searchQuery: query }),
+                // Perform filtering
+                const filtered = get().employees.filter((emp) =>
+                    emp.name.toLowerCase().includes(query.toLowerCase())
+                )
+
+                set({ filteredEmployees: filtered })
+            },
+
+            setEmployees: (data) => {
+                set({ employees: data, filteredEmployees: data }) // Set both
+            },
             setSelectedDepartment: (department) =>
                 set({ selectedDepartment: department }),
             setDarkMode: (isDark) => set({ isDarkMode: isDark }),
             setViewMode: (mode) => set({ viewMode: mode }),
+            toggleSidebar: () =>
+                set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
 
             fetchEmployees: async () => {
                 try {
-                    if (!get().isLoading) {
-                        set({ isLoading: true })
-                    }
+                    set({ isLoading: true })
 
+                    // Simulating an API call
                     await new Promise((resolve) => setTimeout(resolve, 1000))
 
                     set({
                         employees: mockEmployees,
-                        isLoading: false,
-                        error: null
+                        filteredEmployees: mockEmployees,
+                        isLoading: false
                     })
                 } catch (error) {
                     set({

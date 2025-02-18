@@ -40,7 +40,7 @@ export default function Navbar() {
     }
 
     if (!mounted) {
-        return null // or a loading skeleton
+        return null
     }
 
     return (
@@ -53,12 +53,12 @@ export default function Navbar() {
                     : 'bg-white border-gray-200 text-gray-900'
             )}
         >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex-shrink-0">
+                    <div className="pl-12 md:pl-0 shrink-0">
                         <h1
                             className={cn(
-                                'text-xl font-bold',
+                                'text-sm md:text-xl font-bold',
                                 isDarkMode ? 'text-white' : 'text-gray-800'
                             )}
                         >
@@ -101,7 +101,7 @@ export default function Navbar() {
                             )}
                         </Button>
                         <div className="flex">
-                            <div className="flex-shrink-0 flex items-center">
+                            <div className="shrink-0 flex items-center">
                                 <UserCircleIcon className="h-8 w-8" />
                             </div>
                         </div>

@@ -1,12 +1,11 @@
 'use client'
-
 import { useEffect } from 'react'
 import { useEmployeeStore } from '@/lib/store'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeList } from '@/features/employees/components/EmployeeList'
-import { EmployeeListSkeleton } from '@/features/employees/components/EmployeeListSkeleton'
-import { useEmployeeActions } from '@/features/employees/hooks/useEmployeeActions'
+import {} from '@/features/employees/components/EmployeeListSkeleton'
+import { useEmployeeActions } from '@/hooks/useEmployeeActions'
 import EmployeeForm from '@/components/form/EmployeeForm'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
@@ -20,7 +19,7 @@ export default function TableViewPage() {
         handleCancelDelete
     } = useEmployeeActions()
 
-    const { employees, isLoading, error, isDarkMode, fetchEmployees } =
+    const { filteredEmployees, isLoading, error, isDarkMode, fetchEmployees } =
         useEmployeeStore()
 
     useEffect(() => {
@@ -37,8 +36,8 @@ export default function TableViewPage() {
         )
 
     return (
-        <div className={`py-6 ${isDarkMode ? 'text-white' : ''}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={` py-6 ${isDarkMode ? 'text-white' : ''}`}>
+            <div className="px-4 sm:px-6 lg:px-8">
                 <EmployeeHeader
                     onAddClick={() =>
                         setFormState({
@@ -48,21 +47,17 @@ export default function TableViewPage() {
                     }
                 />
 
-                {isLoading ? (
-                    <EmployeeListSkeleton />
-                ) : (
-                    <EmployeeList
-                        viewMode="table"
-                        employees={employees}
-                        onEdit={(employee) =>
-                            setFormState({
-                                isOpen: true,
-                                selectedEmployee: employee
-                            })
-                        }
-                        onDelete={employeeActions.onDelete}
-                    />
-                )}
+                <EmployeeList
+                    isLoading={isLoading}
+                    employees={filteredEmployees}
+                    onEdit={(employee) =>
+                        setFormState({
+                            isOpen: true,
+                            selectedEmployee: employee
+                        })
+                    }
+                    onDelete={employeeActions.onDelete}
+                />
 
                 {formState.isOpen && (
                     <EmployeeForm

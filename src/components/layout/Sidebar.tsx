@@ -13,6 +13,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
+import { useEmployeeStore } from '@/lib/store'
 
 const navigation = [
     { name: 'Card View', href: '/employees/card', icon: LayoutGrid },
@@ -20,7 +21,7 @@ const navigation = [
 ]
 
 export default function Sidebar() {
-    const [isCollapsed, setIsCollapsed] = useState(false)
+    const { isSidebarOpen, toggleSidebar } = useEmployeeStore()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const pathname = usePathname()
     const { theme } = useTheme()
@@ -35,10 +36,10 @@ export default function Sidebar() {
                     size="icon"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className={cn(
-                        'hover:bg-transparent',
+                        'hover:bg-transparent  p-1',
                         isDarkMode
                             ? 'text-gray-200 hover:text-white'
-                            : 'text-gray-600 hover:text-gray-900'
+                            : 'text-gray-600 hover:text-gray-900 bg-white'
                     )}
                 >
                     {isMobileMenuOpen ? (
@@ -53,7 +54,7 @@ export default function Sidebar() {
             <div
                 className={cn(
                     'hidden lg:fixed lg:inset-y-0 lg:z-30 lg:flex lg:flex-col',
-                    isCollapsed ? 'lg:w-16' : 'lg:w-64',
+                    isSidebarOpen ? 'lg:w-16' : 'lg:w-64',
                     'transition-all duration-300'
                 )}
             >
@@ -68,7 +69,7 @@ export default function Sidebar() {
                 >
                     <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
                         <div className="flex items-center justify-between px-4 mb-4">
-                            {!isCollapsed && (
+                            {!isSidebarOpen && (
                                 <h2
                                     className={cn(
                                         'text-lg font-semibold',
@@ -83,7 +84,7 @@ export default function Sidebar() {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => setIsCollapsed(!isCollapsed)}
+                                onClick={() => toggleSidebar()}
                                 className={cn(
                                     'hover:bg-transparent',
                                     isDarkMode
@@ -91,7 +92,7 @@ export default function Sidebar() {
                                         : 'text-gray-600 hover:text-gray-900'
                                 )}
                             >
-                                {isCollapsed ? (
+                                {isSidebarOpen ? (
                                     <ChevronRight className="h-5 w-5" />
                                 ) : (
                                     <ChevronLeft className="h-5 w-5" />
@@ -117,10 +118,10 @@ export default function Sidebar() {
                                     <item.icon
                                         className={cn(
                                             'h-5 w-5',
-                                            isCollapsed ? 'mr-0' : 'mr-3'
+                                            isSidebarOpen ? 'mr-0' : 'mr-3'
                                         )}
                                     />
-                                    {!isCollapsed && <span>{item.name}</span>}
+                                    {!isSidebarOpen && <span>{item.name}</span>}
                                 </Link>
                             ))}
                         </div>

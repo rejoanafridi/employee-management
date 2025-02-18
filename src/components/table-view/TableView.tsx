@@ -110,7 +110,7 @@ export default function TableView({
                                             }`}
                                         >
                                             <div className="flex items-center">
-                                                <div className="h-10 w-10 flex-shrink-0">
+                                                <div className="h-10 w-10 shrink-0">
                                                     <Image
                                                         className="h-10 w-10 rounded-full"
                                                         src={
