@@ -28,7 +28,6 @@ export default function RootLayout({
                     enableSystem={false}
                     storageKey="employee-theme"
                     forcedTheme={isDarkMode ? 'dark' : 'light'}
-                    suppressHydrationWarning
                 >
                     <div className="min-h-screen">
                         <Navbar />
