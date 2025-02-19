@@ -1,6 +1,6 @@
 # Employee Management System
 
-A web-based Employee Management System that allows users to view, manage, and interact with employee information. This project is built using Next.js, Tailwind CSS, and modern React features.
+A web-based Employee Management System that allows users to view, manage, and interact with employee information. This project is built using Next.js, Tailwind CSS, Typescript, and modern React features.
 
 ## Demo
 
