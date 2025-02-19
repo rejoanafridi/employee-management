@@ -1,7 +1,3 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import { useEmployeeStore } from '@/lib/store'
 import { Button } from '@/components/ui/button'
 
 interface ConfirmDialogProps {
@@ -23,8 +19,6 @@ export default function ConfirmDialog({
     onCancel,
     confirmDisabled
 }: ConfirmDialogProps) {
-    const isDarkMode = useEmployeeStore((state) => state.isDarkMode)
-
     if (!isOpen) return null
 
     return (

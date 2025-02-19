@@ -12,8 +12,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { useTheme } from 'next-themes'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 
 const navigation = [
     { name: 'Card View', href: '/employees/card', icon: LayoutGrid },
@@ -21,11 +20,9 @@ const navigation = [
 ]
 
 export default function Sidebar() {
-    const { isSidebarOpen, toggleSidebar } = useEmployeeStore()
+    const { isSidebarOpen, toggleSidebar, isDarkMode } = useEmployeeStore()
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const pathname = usePathname()
-    const { theme } = useTheme()
-    const isDarkMode = theme === 'dark'
 
     return (
         <div suppressHydrationWarning>

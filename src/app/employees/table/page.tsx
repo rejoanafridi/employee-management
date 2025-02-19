@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeList } from '@/features/employees/components/EmployeeList'

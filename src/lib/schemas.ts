@@ -10,10 +10,17 @@ export const employeeSchema = z.object({
         .regex(/^[0-9+\-\s()]*$/, 'Invalid phone number format'),
     address: z.string().min(5, 'Address must be at least 5 characters'),
     department: z
-        .enum(['Engineering', 'HR', 'Sales', 'Marketing', 'Finance'])
+        .enum([
+            'Software Engineer',
+            'Engineering',
+            'HR',
+            'Sales',
+            'Marketing',
+            'Finance'
+        ])
         .optional(),
     status: z.enum(['Active', 'Inactive']).default('Active'),
-    imageUrl: z.string().url().optional()
+    imageUrl: z.string().optional()
 })
 
 export type Employee = z.infer<typeof employeeSchema>

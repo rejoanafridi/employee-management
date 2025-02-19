@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { PencilIcon, TrashIcon } from 'lucide-react'
 import { Employee } from '@/lib/schemas'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { defaultAvatar } from '@/lib/constant'

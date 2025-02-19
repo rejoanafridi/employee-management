@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeCardView } from '@/features/employees/components/EmployeeCardView'
@@ -25,7 +25,6 @@ export default function CardView() {
     useEffect(() => {
         fetchEmployees()
     }, [fetchEmployees])
-
     if (error)
         return (
             <ErrorDisplay
@@ -48,8 +47,8 @@ export default function CardView() {
                 />
 
                 <EmployeeCardView
-                    employees={filteredEmployees}
                     isLoading={isLoading}
+                    employees={filteredEmployees}
                     onEdit={(employee) =>
                         setFormState({
                             isOpen: true,

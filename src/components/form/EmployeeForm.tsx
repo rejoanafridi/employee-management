@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { X } from 'lucide-react'
 import { Employee, employeeSchema } from '@/lib/schemas'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -350,6 +350,7 @@ export default function EmployeeForm({
                                     </FormLabel>
                                     <FormControl>
                                         <Input
+                                            required={false}
                                             placeholder="Enter image URL"
                                             className={cn(
                                                 isDarkMode &&

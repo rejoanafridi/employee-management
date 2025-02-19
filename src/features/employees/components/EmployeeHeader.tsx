@@ -1,20 +1,16 @@
 'use client'
-
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { useTheme } from 'next-themes'
 import SearchInput from './SearchInput'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 
 interface EmployeeHeaderProps {
     onAddClick: () => void
 }
 
 export const EmployeeHeader = ({ onAddClick }: EmployeeHeaderProps) => {
-    const { theme } = useTheme()
-    const isDarkMode = theme === 'dark'
-    const { setSearchQuery } = useEmployeeStore()
+    const { setSearchQuery, isDarkMode } = useEmployeeStore()
 
     return (
         <div className="flex justify-between gap-4 flex-wrap items-center mb-6">

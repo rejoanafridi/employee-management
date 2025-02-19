@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import {
     EmployeeActions,
     FormState,
@@ -22,13 +22,13 @@ export const useEmployeeActions = () => {
 
     const employeeActions: EmployeeActions = {
         onAdd: async (data) => {
-            await addEmployee(data)
             setFormState((prev) => ({ ...prev, isOpen: false }))
+            await addEmployee(data)
         },
 
         onUpdate: async (id, data) => {
-            await updateEmployee(id, data)
             setFormState({ isOpen: false, selectedEmployee: undefined })
+            await updateEmployee(id, data)
         },
 
         onDelete: async (id) => {
@@ -53,7 +53,7 @@ export const useEmployeeActions = () => {
             })
         } catch (error) {
             setDeleteConfirm((prev) => ({ ...prev, isDeleting: false }))
-            // Handle error if needed
+            console.log(error)
         }
     }
 

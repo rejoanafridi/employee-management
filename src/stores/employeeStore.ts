@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Employee } from './schemas'
+import { Employee } from '../lib/schemas'
 
 interface EmployeeStore {
     employees: Employee[]
@@ -27,11 +27,11 @@ interface EmployeeStore {
 const mockEmployees: Employee[] = [
     {
         id: '1',
-        name: 'John Doe',
-        email: 'john@example.com',
-        phone: '123-456-7890',
-        address: '123 Main St, City',
-        department: 'Engineering',
+        name: 'Rejoan Islam',
+        email: 'rejoanislam.cse@gmail.com',
+        phone: '01641585416',
+        address: 'Mirpur, Dhaka',
+        department: 'Software Engineer',
         status: 'Active'
     },
     {
@@ -50,13 +50,14 @@ export const useEmployeeStore = create<EmployeeStore>()(
         (set, get) => ({
             employees: [],
             filteredEmployees: [],
-            isLoading: true,
+            isLoading: false,
             error: null,
             searchQuery: '',
-            isSidebarOpen: true,
             selectedDepartment: null,
             isDarkMode: false,
             viewMode: 'card',
+            isSidebarOpen: false,
+
             setSearchQuery: (query) => {
                 set({ searchQuery: query })
 
@@ -68,13 +69,17 @@ export const useEmployeeStore = create<EmployeeStore>()(
                 set({ filteredEmployees: filtered })
             },
 
-            setEmployees: (data) => {
-                set({ employees: data, filteredEmployees: data }) // Set both
+            setEmployees: (data: Employee[]) => {
+                set({ employees: data, filteredEmployees: data })
             },
+
             setSelectedDepartment: (department) =>
                 set({ selectedDepartment: department }),
+
             setDarkMode: (isDark) => set({ isDarkMode: isDark }),
+
             setViewMode: (mode) => set({ viewMode: mode }),
+
             toggleSidebar: () =>
                 set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
 
@@ -82,8 +87,16 @@ export const useEmployeeStore = create<EmployeeStore>()(
                 try {
                     set({ isLoading: true })
 
-                    // Simulating an API call
                     await new Promise((resolve) => setTimeout(resolve, 1000))
+
+                    const storedEmployees = get().employees
+                    if (storedEmployees.length > 0) {
+                        set({
+                            filteredEmployees: storedEmployees,
+                            isLoading: false
+                        })
+                        return
+                    }
 
                     set({
                         employees: mockEmployees,
@@ -92,7 +105,7 @@ export const useEmployeeStore = create<EmployeeStore>()(
                     })
                 } catch (error) {
                     set({
-                        error: 'Failed to fetch employees',
+                        error: `Failed to fetch employees ${error}`,
                         isLoading: false
                     })
                 }
@@ -110,12 +123,13 @@ export const useEmployeeStore = create<EmployeeStore>()(
 
                     set((state) => ({
                         employees: [...state.employees, newEmployee],
+                        filteredEmployees: [...state.employees, newEmployee],
                         isLoading: false,
                         error: null
                     }))
                 } catch (error) {
                     set({
-                        error: 'Failed to add employee',
+                        error: `Failed to add employee ${error}`,
                         isLoading: false
                     })
                 }
@@ -130,12 +144,15 @@ export const useEmployeeStore = create<EmployeeStore>()(
                         employees: state.employees.map((emp) =>
                             emp.id === id ? { ...emp, ...employee } : emp
                         ),
+                        filteredEmployees: state.filteredEmployees.map((emp) =>
+                            emp.id === id ? { ...emp, ...employee } : emp
+                        ),
                         isLoading: false,
                         error: null
                     }))
                 } catch (error) {
                     set({
-                        error: 'Failed to update employee',
+                        error: `Failed to update employee ${error}`,
                         isLoading: false
                     })
                 }
@@ -149,11 +166,14 @@ export const useEmployeeStore = create<EmployeeStore>()(
                         employees: state.employees.filter(
                             (emp) => emp.id !== id
                         ),
+                        filteredEmployees: state.filteredEmployees.filter(
+                            (emp) => emp.id !== id
+                        ),
                         error: null
                     }))
                 } catch (error) {
                     set({
-                        error: 'Failed to delete employee'
+                        error: `Failed to delete employee ${error}`
                     })
                 }
             }
@@ -161,6 +181,7 @@ export const useEmployeeStore = create<EmployeeStore>()(
         {
             name: 'employee-store',
             partialize: (state) => ({
+                employees: state.employees,
                 isDarkMode: state.isDarkMode,
                 viewMode: state.viewMode
             })

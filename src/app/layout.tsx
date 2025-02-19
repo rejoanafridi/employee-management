@@ -4,7 +4,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Sidebar from '@/components/layout/Sidebar'
 import { ThemeProvider } from '@/components/theme-provider'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })

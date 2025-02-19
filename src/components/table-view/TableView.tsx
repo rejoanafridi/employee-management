@@ -1,8 +1,9 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Employee } from '@/lib/schemas'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { defaultAvatar } from '@/lib/constant'
 import Image from 'next/image'
+import { Button } from '../ui/button'
 
 interface TableViewProps {
     employees: Employee[]
@@ -187,7 +188,8 @@ export default function TableView({
                                             </span>
                                         </td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <button
+                                            <Button
+                                                variant="ghost"
                                                 onClick={() => onEdit(employee)}
                                                 className={`${
                                                     isDarkMode
@@ -196,8 +198,9 @@ export default function TableView({
                                                 } mr-4`}
                                             >
                                                 <PencilIcon className="h-5 w-5" />
-                                            </button>
-                                            <button
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
                                                 onClick={() =>
                                                     onDelete(employee.id!)
                                                 }
@@ -208,7 +211,7 @@ export default function TableView({
                                                 }
                                             >
                                                 <TrashIcon className="h-5 w-5" />
-                                            </button>
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}

@@ -11,7 +11,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { useEffect, useState } from 'react'
 
 export default function Navbar() {

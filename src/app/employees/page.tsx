@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useEmployeeStore } from '@/lib/store'
+import { useEmployeeStore } from '@/stores/employeeStore'
 import { ErrorDisplay } from '@/features/employees/components/ErrorDisplay'
 import { EmployeeHeader } from '@/features/employees/components/EmployeeHeader'
 import { EmployeeList } from '@/features/employees/components/EmployeeList'
@@ -18,7 +18,7 @@ export default function EmployeesPage() {
         handleCancelDelete
     } = useEmployeeActions()
 
-    const { employees, error, isDarkMode, fetchEmployees, isLoading } =
+    const { filteredEmployees, error, isDarkMode, fetchEmployees, isLoading } =
         useEmployeeStore()
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function EmployeesPage() {
 
                 <EmployeeList
                     isLoading={isLoading}
-                    employees={employees}
+                    employees={filteredEmployees}
                     onEdit={(employee) =>
                         setFormState({
                             isOpen: true,
